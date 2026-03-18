@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titanic Survival Predictor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-2">Titanic Survival Predictor</h1>
+        <p class="text-center text-muted mb-4">Fill in the passenger details to predict survival</p>
+
+        <div class="card mx-auto" style="max-width: 480px;">
+            <div class="card-body">
+                <form action="/predict" method="POST">
+
+                    <div class="form-group">
+                        <label>Passenger Class</label>
+                        <select class="form-control" name="pclass">
+                            <option value="1">1st Class</option>
+                            <option value="2">2nd Class</option>
+                            <option value="3" selected>3rd Class</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select class="form-control" name="sex">
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" class="form-control" name="age"
+                               placeholder="e.g. 29" min="0" max="100" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Siblings / Spouses aboard</label>
+                        <input type="number" class="form-control" name="sibsp"
+                               value="0" min="0" max="10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Parents / Children aboard</label>
+                        <input type="number" class="form-control" name="parch"
+                               value="0" min="0" max="10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fare paid (£)</label>
+                        <input type="number" class="form-control" name="fare"
+                               placeholder="e.g. 32.50" step="0.01" min="0" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mt-3">Predict</button>
+                </form>
+
+                {% if prediction_text %}
+                <div class="alert alert-info mt-4 text-center" role="alert">
+                    <h5 class="mb-0">{{ prediction_text }}</h5>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
